@@ -13,7 +13,10 @@ namespace ABCProperties.Infrastructure
             // Infrastructure service registrations go here
             return services
                 .AddDbContext<AppDbContext>(options => options
-                    .UseSqlServer(configuration.GetConnectionString("")));
+                    .UseSqlServer(configuration.GetConnectionString(""), builder =>
+                    {
+                        builder.MigrationsHistoryTable("Migrations", "EFCore");
+                    }));
         }
     }
 }

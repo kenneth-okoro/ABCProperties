@@ -1,9 +1,11 @@
-﻿namespace ABCProperties.Application.Wrappers
+﻿using System.Text.Json.Serialization;
+
+namespace ABCProperties.Application.Wrappers
 {
     public interface IResponseWrapper
     {
-        public List<string> Messages { get; set; }
         public bool IsSuccessful { get; set; }
+        public List<string> Messages { get; set; }
     }
 
     public interface IResponseWrapper<out T> : IResponseWrapper

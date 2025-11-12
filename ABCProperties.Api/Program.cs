@@ -1,4 +1,5 @@
 using ABCProperties.Infrastructure;
+using System.Text.Json;
 
 namespace ABCProperties.Api
 {
@@ -16,6 +17,11 @@ namespace ABCProperties.Api
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            });
+
 
             var app = builder.Build();
 

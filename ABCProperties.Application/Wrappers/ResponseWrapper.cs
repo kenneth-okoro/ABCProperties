@@ -1,9 +1,13 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace ABCProperties.Application.Wrappers
 {
     public class ResponseWrapper : IResponseWrapper
     {
+        [JsonPropertyOrder(1)]
         public List<string> Messages { get; set; } = [];
+        [JsonPropertyOrder(0)]
         public bool IsSuccessful { get ; set; }
 
         #region Failures
@@ -43,6 +47,7 @@ namespace ABCProperties.Application.Wrappers
 
     public class ResponseWrapper<T> : ResponseWrapper, IResponseWrapper<T>
     {
+        [JsonPropertyOrder(2)]
         public T Data { get; init; }
         #region Failures
         public new static IResponseWrapper<T> Fail()
@@ -81,11 +86,11 @@ namespace ABCProperties.Application.Wrappers
         }
         public static IResponseWrapper<T> Success(T data, string message)
         {
-            return new ResponseWrapper<T>() { IsSuccessful = true, Data = data, Messages = [message] };
+            return new ResponseWrapper<T>() { IsSuccessful = true, Messages = [message], Data = data, };
         }
         public static IResponseWrapper<T> Success(T data, List<string> messages)
         {
-            return new ResponseWrapper<T>() { IsSuccessful = true, Data = data, Messages = messages };
+            return new ResponseWrapper<T>() { IsSuccessful = true, Messages = messages, Data = data, };
         }
         #endregion
     }

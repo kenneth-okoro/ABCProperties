@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="MediatR" Version="13.1.0" />
   </ItemGroup>
 
@@ -15,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Agents\Commands\" />
     <Folder Include="Features\Agents\Queries\" />
     <Folder Include="Features\Properties\" />
   </ItemGroup>

@@ -23,8 +23,12 @@ namespace ABCProperties.Application.Features.Agents.Commands
         {
             var updatedAgent = await _agentService.UpdateAsync(request.UpdateAgent.Adapt<Agent>());
 
-            return ResponseWrapper<AgentResponse>.Success(data: updatedAgent.Adapt<AgentResponse>(), 
-                message: "Agent updated successfully.");
+            if (updatedAgent is not null)
+            {
+                return ResponseWrapper<AgentResponse>.Success(data: updatedAgent.Adapt<AgentResponse>(), 
+                    message: "Agent updated successfully.");
+            }
+            return ResponseWrapper<AgentResponse>.Fail(message: "Agent not found.");
         }
     }
 }

@@ -17,7 +17,8 @@ namespace ABCProperties.Application.Features.Agents.Queries
             _agentService = agentService;
         }
 
-        public async Task<ResponseWrapper<List<AgentResponse>>> Handle(GetAgentsQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseWrapper<List<AgentResponse>>> Handle(GetAgentsQuery request, 
+            CancellationToken cancellationToken)
         {
             var agentsEntity = await _agentService.GetAllAsync();
 

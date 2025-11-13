@@ -18,8 +18,12 @@ namespace ABCProperties.Application.Features.Agents.Queries
             _agentService = agentService;
         }
 
-        public async Task<ResponseWrapper<AgentResponse>> Handle(GetAgentByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseWrapper<AgentResponse>> Handle(GetAgentByIdQuery request, 
+            CancellationToken cancellationToken)
         {
+            // Manual Mapping
+            //var agent = request.CreateAgent.MapToAgent();
+
             var agentEntity = await _agentService.GetByIdAsync(request.AgentId);
 
             if (agentEntity is not null)

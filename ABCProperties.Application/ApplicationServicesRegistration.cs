@@ -9,11 +9,12 @@ namespace ABCProperties.Application
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            return services
-                .AddMediatR(config =>
+                services.AddMediatR(config =>
                 {
                     config.RegisterServicesFromAssembly(assembly);
                 });
+
+            return services;
         }
     }
 }

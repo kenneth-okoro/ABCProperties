@@ -1,4 +1,5 @@
 ﻿using ABCProperties.Application.Features.Agents;
+using ABCProperties.Application.Features.Properties;
 using ABCProperties.Infrastructure.Contexts;
 using ABCProperties.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -12,13 +13,15 @@ namespace ABCProperties.Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, 
             IConfiguration configuration)
         {
-            return services
-                .AddDbContext<AppDbContext>(options => options
-                    .UseSqlServer(configuration.GetConnectionString("DefaultConnection"), builder =>
-                    {
-                        builder.MigrationsHistoryTable("Migrations", "EFCore");
-                    }))
-                .AddScoped<IAgentService, AgentService>();
+            services.AddDbContext<AppDbContext>(options => options
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"), builder =>
+                {
+                    builder.MigrationsHistoryTable("Migrations", "EFCore");
+                }));
+            services.AddScoped<IAgentService, AgentService>();
+            services.AddScoped<IPropertyService, PropertyService>();
+
+            return services;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ABCProperties.Application.Models.Requests;
+﻿using ABCProperties.Application.Models.Mappings;
+using ABCProperties.Application.Models.Requests;
 using ABCProperties.Application.Wrappers;
 using ABCProperties.Domain.Entities;
 using Mapster;
@@ -20,6 +21,9 @@ namespace ABCProperties.Application.Features.Agents.Commands
         }
         public async Task<IResponseWrapper> Handle(CreateAgentCommand request, CancellationToken cancellationToken)
         {
+            // Manual Mapping
+            //var agent = request.CreateAgent.MapToAgent();
+
             var agentId = await _agentService.CreateAsync(request.CreateAgent.Adapt<Agent>());
 
             return ResponseWrapper<int>.Success(data: agentId, message: "Agent created successfully.");

@@ -15,8 +15,4 @@
     <ProjectReference Include="..\ABCProperties.Domain\ABCProperties.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Properties\" />
-  </ItemGroup>
-
 </Project>

@@ -5,7 +5,7 @@ namespace ABCProperties.Application.Features.Agents.Commands
 {
     public class DeleteAgentCommand : IRequest<IResponseWrapper>
     {
-        public int Id { get; set; }
+        public int AgentId { get; set; }
     }
 
     public class DeleteAgentCommandHandler : IRequestHandler<DeleteAgentCommand, IResponseWrapper>
@@ -17,7 +17,7 @@ namespace ABCProperties.Application.Features.Agents.Commands
         }
         public async Task<IResponseWrapper> Handle(DeleteAgentCommand request, CancellationToken cancellationToken)
         {
-            var agentId = await _agentService.DeleteAsync(request.Id);
+            var agentId = await _agentService.DeleteAsync(request.AgentId);
             if (agentId > 0)
             {
                 return ResponseWrapper<int>.Success(data: agentId, message: "Agent deleted successfully.");

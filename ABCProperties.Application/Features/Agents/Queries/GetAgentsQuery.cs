@@ -24,7 +24,8 @@ namespace ABCProperties.Application.Features.Agents.Queries
 
             if (agentsEntity.Count > 0)
             {
-                return ResponseWrapper<List<AgentResponse>>.Success(data: agentsEntity.Adapt<List<AgentResponse>>());
+                return ResponseWrapper<List<AgentResponse>>.Success(data: agentsEntity.Adapt<List<AgentResponse>>(),
+                    message: "All agent details retrieved successfully.");
             }
             return ResponseWrapper<List<AgentResponse>>.Fail(message: "No agents found.");
         }

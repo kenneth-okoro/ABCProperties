@@ -42,6 +42,7 @@ namespace ABCProperties.Api
 
 
             app.MapControllers();
+            app.MapPropertyEndpoints();
 
             app.Run();
         }

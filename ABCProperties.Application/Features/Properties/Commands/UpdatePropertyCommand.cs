@@ -28,7 +28,8 @@ namespace ABCProperties.Application.Features.Properties.Commands
 
             if (updatedProperty is not null)
             {
-                return ResponseWrapper<PropertyResponse>.Success(data: updatedProperty.Adapt<PropertyResponse>());
+                return ResponseWrapper<PropertyResponse>.Success(data: updatedProperty.Adapt<PropertyResponse>(),
+                    message: "Property updated successfully.");
             }
 
             return ResponseWrapper<PropertyResponse>.Fail(message: "Property does not exist.");

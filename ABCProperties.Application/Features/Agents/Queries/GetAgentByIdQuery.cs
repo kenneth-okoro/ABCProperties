@@ -28,7 +28,8 @@ namespace ABCProperties.Application.Features.Agents.Queries
 
             if (agentEntity is not null)
             {
-                return ResponseWrapper<AgentResponse>.Success(data: agentEntity.Adapt<AgentResponse>());
+                return ResponseWrapper<AgentResponse>.Success(data: agentEntity.Adapt<AgentResponse>(), 
+                    message: "Agent details retrieved successfully");
             }
             return ResponseWrapper<AgentResponse>.Fail(message: "Agent not found.");
         }

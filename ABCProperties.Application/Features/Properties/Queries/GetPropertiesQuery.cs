@@ -24,7 +24,7 @@ namespace ABCProperties.Application.Features.Properties.Queries
 
             if (properties.Count > 0)
                 return ResponseWrapper<List<PropertyResponse>>.Success(data: properties
-                    .Adapt<List<PropertyResponse>>());
+                    .Adapt<List<PropertyResponse>>(), message: "Properties retrieved successfully.");
 
             return ResponseWrapper<List<PropertyResponse>>.Fail(message: "No properties were found.");
         }

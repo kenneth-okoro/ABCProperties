@@ -26,7 +26,7 @@ namespace ABCProperties.Application.Features.Properties.Queries
 
             if (property is not null)
                 return ResponseWrapper<PropertyResponse>.Success(data: property
-                    .Adapt<PropertyResponse>());
+                    .Adapt<PropertyResponse>(), message: "Property retrieved successfully.");
 
             return ResponseWrapper<PropertyResponse>.Fail(message: "Property does not exist");
         }

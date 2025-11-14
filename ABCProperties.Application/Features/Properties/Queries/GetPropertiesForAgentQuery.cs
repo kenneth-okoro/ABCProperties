@@ -11,7 +11,8 @@ namespace ABCProperties.Application.Features.Properties.Queries
         public int AgentId { get; set; }
     }
 
-    public class GetPropertiesForAgentQueryHandler : IRequestHandler<GetPropertiesForAgentQuery, ResponseWrapper<List<PropertyResponse>>>
+    public class GetPropertiesForAgentQueryHandler : IRequestHandler<GetPropertiesForAgentQuery, 
+        ResponseWrapper<List<PropertyResponse>>>
     {
         private readonly IPropertyService _propertyService;
         private readonly IAgentService _agentService;
@@ -25,15 +26,24 @@ namespace ABCProperties.Application.Features.Properties.Queries
         public async Task<ResponseWrapper<List<PropertyResponse>>> Handle(GetPropertiesForAgentQuery request, 
             CancellationToken cancellationToken)
         {
-            var properties = await _propertyService.GetByAgentIdAsync(request.AgentId);
             var agent = await _agentService.GetByIdAsync(request.AgentId);
 
-            if (properties.Count > 0)
-                return ResponseWrapper<List<PropertyResponse>>.Success(data: properties
-                    .Adapt<List<PropertyResponse>>());
+            if (agent is null)
+                return ResponseWrapper<List<PropertyResponse>>.Fail(
+                    message: "Agent not found."
+                );
 
-            return ResponseWrapper<List<PropertyResponse>>
-                .Fail(message: $"No properties were found for {agent.FirstName} {agent.LastName}.");
+            var properties = await _propertyService.GetByAgentIdAsync(request.AgentId);
+
+            if (properties.Count == 0)
+                return ResponseWrapper<List<PropertyResponse>>.Fail(
+                    message: $"No properties were found for {agent.FirstName} {agent.LastName}."
+                );
+
+            return ResponseWrapper<List<PropertyResponse>>.Success(
+                data: properties.Adapt<List<PropertyResponse>>(),
+                message: "Properties retrieved successfully."
+            );
         }
     }
 }

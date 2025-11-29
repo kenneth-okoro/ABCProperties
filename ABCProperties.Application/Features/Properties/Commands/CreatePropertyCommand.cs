@@ -1,5 +1,6 @@
 ﻿using ABCProperties.Application.Models.Mappings;
 using ABCProperties.Application.Models.Requests;
+using ABCProperties.Application.Pipelines.Contracts;
 using ABCProperties.Application.Wrappers;
 using ABCProperties.Domain.Entities;
 using Mapster;
@@ -7,7 +8,7 @@ using MediatR;
 
 namespace ABCProperties.Application.Features.Properties.Commands
 {
-    public class CreatePropertyCommand : IRequest<IResponseWrapper>
+    public class CreatePropertyCommand : IRequest<IResponseWrapper>, IValidatable
     {
         public CreatePropertyRequest CreateProperty { get; set; }
     }

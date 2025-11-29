@@ -1,11 +1,12 @@
-﻿using ABCProperties.Application.Wrappers;
+﻿using ABCProperties.Application.Pipelines.Contracts;
+using ABCProperties.Application.Wrappers;
 using FluentValidation;
 using MediatR;
 
 namespace ABCProperties.Application.Pipelines
 {
     public class ValidationPipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : IRequest<TResponse>, IValidatable
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

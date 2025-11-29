@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace ABCProperties.Application
@@ -13,6 +14,7 @@ namespace ABCProperties.Application
                 {
                     config.RegisterServicesFromAssembly(assembly);
                 });
+            services.AddValidatorsFromAssembly(assembly);
 
             return services;
         }

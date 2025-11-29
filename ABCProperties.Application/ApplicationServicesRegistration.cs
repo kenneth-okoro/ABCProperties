@@ -18,6 +18,7 @@ namespace ABCProperties.Application
                 });
             services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachePipelineBehaviour<,>));
 
             return services;
         }

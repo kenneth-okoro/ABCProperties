@@ -17,6 +17,9 @@ namespace ABCProperties.Api.Endpoints.Properties
                     return Results.Ok(response);
                 return Results.NotFound(response);
             })
+                .WithName(nameof(GetPropertyByIdEndpoint))
+                .WithSummary("Returns existing property")
+                .WithDescription("Returns existing with the provided id.")
                 .Produces<ResponseWrapper<PropertyResponse>>(StatusCodes.Status200OK)
                 .Produces<ResponseWrapper<PropertyResponse>>(StatusCodes.Status404NotFound);
         }

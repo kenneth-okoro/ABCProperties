@@ -16,6 +16,9 @@ namespace ABCProperties.Api.Endpoints.Properties
                     return Results.Ok(response);
                 return Results.NotFound(response);
             })
+                .WithName(nameof(DeletePropertyEndpoint))
+                .WithSummary("Deletes a new property")
+                .WithDescription("Deletes a new property with the provided id.")
                 .Produces<ResponseWrapper<int>>(StatusCodes.Status200OK)
                 .Produces<ResponseWrapper<int>>(StatusCodes.Status404NotFound);
         }

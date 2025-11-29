@@ -16,6 +16,9 @@ namespace ABCProperties.Api.Endpoints.Properties
                     return Results.Ok(response);
                 return Results.NotFound(response);
             })
+                .WithName(nameof(GetPropertiesForAgentEndpoint))
+                .WithSummary("Gets property for specific agent")
+                .WithDescription("Returns all properties by specific agent id.")
                 .Produces<ResponseWrapper<List<PropertyResponse>>>(StatusCodes.Status200OK)
                 .Produces<ResponseWrapper<List<PropertyResponse>>>(StatusCodes.Status404NotFound);
         }

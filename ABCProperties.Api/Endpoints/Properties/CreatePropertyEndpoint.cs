@@ -17,6 +17,9 @@ namespace ABCProperties.Api.Endpoints.Properties
                     return Results.Ok(response);
                 return Results.BadRequest(response);
             })
+                .WithName(nameof(CreatePropertyEndpoint))
+                .WithSummary("Create a new property")
+                .WithDescription("Creates a new property with the provided details.")
                 .Produces<ResponseWrapper<int>>(StatusCodes.Status200OK)
                 .Produces<ResponseWrapper<int>>(StatusCodes.Status400BadRequest);
         }

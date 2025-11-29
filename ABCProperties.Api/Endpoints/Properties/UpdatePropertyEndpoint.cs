@@ -18,6 +18,9 @@ namespace ABCProperties.Api.Endpoints.Properties
                     return Results.Ok(response);
                 return Results.BadRequest(response);
             })
+                .WithName(nameof(UpdatePropertyEndpoint))
+                .WithSummary("Updates existing property")
+                .WithDescription("Updates existing property with the provided details.")
                 .Produces<ResponseWrapper<PropertyResponse>>(StatusCodes.Status200OK)
                 .Produces<ResponseWrapper<PropertyResponse>>(StatusCodes.Status404NotFound);
         }

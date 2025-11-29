@@ -1,13 +1,23 @@
 ﻿using ABCProperties.Application.Models.Responses;
+using ABCProperties.Application.Pipelines.Contracts;
 using ABCProperties.Application.Wrappers;
 using Mapster;
 using MediatR;
 
 namespace ABCProperties.Application.Features.Properties.Queries
 {
-    public class GetPropertyByIdQuery : IRequest<ResponseWrapper<PropertyResponse>>
+    public class GetPropertyByIdQuery : IRequest<ResponseWrapper<PropertyResponse>>, ICacheable
     {
         public int Id { get; set; }
+        public string CacheKey { get; set; }
+        public bool IsBypassCache { get; set; }
+        public TimeSpan? SlidingExpiration { get; set; }
+
+        public GetPropertyByIdQuery()
+        {
+            CacheKey = $"{nameof(GetPropertyByIdQuery)}:{Id}";
+            IsBypassCache = false;
+        }
     }
 
     public class GetPropertyByIdQueryHandler : IRequestHandler<GetPropertyByIdQuery, ResponseWrapper<PropertyResponse>>

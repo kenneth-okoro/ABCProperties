@@ -21,6 +21,13 @@ namespace ABCProperties.Api
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
 
+            var cacheSettings = builder.Services.GetCacheSettings(builder.Configuration);
+
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = cacheSettings.DestinationUrl;
+            });
+
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;

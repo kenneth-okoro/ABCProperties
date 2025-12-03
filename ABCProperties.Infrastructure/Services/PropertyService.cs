@@ -47,19 +47,74 @@ namespace ABCProperties.Infrastructure.Services
 
         public async Task<List<Property>> GetAllAsync()
         {
-            return await _context.Properties.ToListAsync();
+            return await _context.Properties
+                .Include(property => property.Agent)
+                .Select(property => new Property
+                {
+                    Id =  property.Id,
+                    AgentId = property.AgentId,
+                    ShortDescription = property.ShortDescription,
+                    LongDescription = property.LongDescription,
+                    Price = property.Price,
+                    ListingDate = property.ListingDate,
+                    Agent = new Agent
+                    {
+                        Id = property.AgentId,
+                        FirstName = property.Agent.FirstName,
+                        LastName = property.Agent.LastName,
+                        PhoneNumber = property.Agent.PhoneNumber,
+                        Email = property.Agent.Email
+                    }
+                })
+                .ToListAsync();
         }
 
         public async Task<List<Property>> GetByAgentIdAsync(int agentId)
         {
             return await _context.Properties
-                .Where(x => x.AgentId == agentId)
+                .Include(property => property.Agent)
+                .Select(property => new Property
+                {
+                    Id =  property.Id,
+                    AgentId = property.AgentId,
+                    ShortDescription = property.ShortDescription,
+                    LongDescription = property.LongDescription,
+                    Price = property.Price,
+                    ListingDate = property.ListingDate,
+                    Agent = new Agent
+                    {
+                        Id = property.AgentId,
+                        FirstName = property.Agent.FirstName,
+                        LastName = property.Agent.LastName,
+                        PhoneNumber = property.Agent.PhoneNumber,
+                        Email = property.Agent.Email
+                    }
+                })
+                .Where(property => property.AgentId == agentId)
                 .ToListAsync();
         }
 
         public async Task<Property> GetByIdAsync(int id)
         {
             var property = await _context.Properties
+                .Include(property => property.Agent)
+                .Select(property => new Property
+                {
+                    Id =  property.Id,
+                    AgentId = property.AgentId,
+                    ShortDescription = property.ShortDescription,
+                    LongDescription = property.LongDescription,
+                    Price = property.Price,
+                    ListingDate = property.ListingDate,
+                    Agent = new Agent
+                    {
+                        Id = property.AgentId,
+                        FirstName = property.Agent.FirstName,
+                        LastName = property.Agent.LastName,
+                        PhoneNumber = property.Agent.PhoneNumber,
+                        Email = property.Agent.Email
+                    }
+                })
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (property is not null)

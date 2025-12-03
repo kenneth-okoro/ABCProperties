@@ -46,13 +46,51 @@ namespace ABCProperties.Infrastructure.Services
         public async Task<List<Agent>> GetAllAsync()
         {
             return await _context.Agents
+                .Include(agent => agent.Properties)
+                .Select(agent => new Agent
+                {
+                    Id = agent.Id,
+                    FirstName = agent.FirstName,
+                    LastName = agent.LastName,
+                    PhoneNumber = agent.PhoneNumber,
+                    Email = agent.Email,
+                    Properties = agent.Properties
+                    .Select(property => new Property
+                    {
+                        Id = property.Id,
+                        AgentId = property.AgentId,
+                        ShortDescription = property.ShortDescription,
+                        LongDescription = property.LongDescription,
+                        Price = property.Price,
+                        ListingDate = property.ListingDate
+                    }).ToList()
+                })
                 .ToListAsync();
         }
 
         public async Task<Agent> GetByIdAsync(int id)
         {
             var agentEntity = await _context
-                .Agents.FirstOrDefaultAsync
+                .Agents.Include(agent => agent.Properties)
+                .Select(agent => new Agent
+                {
+                    Id = agent.Id,
+                    FirstName = agent.FirstName,
+                    LastName = agent.LastName,
+                    PhoneNumber = agent.PhoneNumber,
+                    Email = agent.Email,
+                    Properties = agent.Properties
+                    .Select(property => new Property
+                    {
+                        Id = property.Id,
+                        AgentId = property.AgentId,
+                        ShortDescription = property.ShortDescription,
+                        LongDescription = property.LongDescription,
+                        Price = property.Price,
+                        ListingDate = property.ListingDate
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync
                     (agent => agent.Id == id);
 
             if (agentEntity is not null)
